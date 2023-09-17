@@ -11,8 +11,6 @@ using Nop.Web.Factories;
 using Nop.Web.Models.Blogs;
 using Nop.Web.Models.Catalog;
 using Nop.Web.Models.Topics;
-using StackExchange.Profiling.Internal;
-using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace Nop.Plugin.Widgets.ImprovedSearch.Services
 {
@@ -58,12 +56,12 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Services
         private async Task<ImprovedTopicListModel> SearchTopics(SearchModel searchModel)
         {
             var improvedTopicListModel = new ImprovedTopicListModel();
-            var searchTerms = await ValidateSearchTermsAndPlaceWarning(searchModel, improvedTopicListModel);
+            await ValidateSearchTermsAndPlaceWarning(searchModel, improvedTopicListModel);
             if (!string.IsNullOrWhiteSpace(improvedTopicListModel.WarningMessage))
             {
                 return improvedTopicListModel;
             }
-            var topics = await GetMatchingTopics(searchTerms);
+            var topics = await GetMatchingTopics(searchModel);
 
             if (topics.Count == 0)
             {
@@ -80,28 +78,26 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Services
             return improvedTopicListModel;
         }
 
-        private async Task<IList<Topic>> GetMatchingTopics(string[] searchTerms)
+        private async Task<IList<Topic>> GetMatchingTopics(SearchModel searchModel)
         {
-            var matchingTopicsQuery = _topicRepository.Table;
-            foreach (var keyword in searchTerms)
+            return await _topicRepository.GetAllAsync(query =>
             {
-                matchingTopicsQuery = matchingTopicsQuery.Where(t => t.Body.Contains(keyword) || t.Title.Contains(keyword) || t.MetaTitle.Contains(keyword)
-                    || t.MetaDescription.Contains(keyword) || t.MetaKeywords.Contains(keyword));
-            }
-            matchingTopicsQuery = matchingTopicsQuery.OrderByDescending(t => searchTerms.Count(keyword => t.Body.Contains(keyword) || t.Title.Contains(keyword) || t.MetaTitle.Contains(keyword)
-                    || t.MetaDescription.Contains(keyword) || t.MetaKeywords.Contains(keyword)));
-            return await matchingTopicsQuery.ToListAsync();
+                return from t in query
+                       where t.Body.Contains(searchModel.q) || t.Title.Contains(searchModel.q) || t.MetaTitle.Contains(searchModel.q)
+                                   || t.MetaDescription.Contains(searchModel.q) || t.MetaKeywords.Contains(searchModel.q)
+                       select t;
+            });
         }
 
         private async Task<ImprovedBlogPostListModel> SearchBlogs(SearchModel searchModel)
         {
             var improvedBlogPostListModel = new ImprovedBlogPostListModel();
-            var searchTerms = await ValidateSearchTermsAndPlaceWarning(searchModel, improvedBlogPostListModel);
+            await ValidateSearchTermsAndPlaceWarning(searchModel, improvedBlogPostListModel);
             if (!string.IsNullOrWhiteSpace(improvedBlogPostListModel.WarningMessage))
             {
                 return improvedBlogPostListModel;
             }
-            var blogPosts = await GetMatchingBlogPosts(searchTerms);
+            var blogPosts = await GetMatchingBlogPosts(searchModel);
 
             if (blogPosts.Count == 0)
             {
@@ -119,31 +115,26 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Services
             return improvedBlogPostListModel;
         }
 
-        private async Task<IList<BlogPost>> GetMatchingBlogPosts(string[] searchTerms)
+        private async Task<IList<BlogPost>> GetMatchingBlogPosts(SearchModel searchModel)
         {
-            var matchingBlogPostsQuery = _blogPostRepository.Table;
-            foreach (var keyword in searchTerms)
+            return await _blogPostRepository.GetAllAsync(query =>
             {
-                matchingBlogPostsQuery = matchingBlogPostsQuery.Where(b => b.Body.Contains(keyword) || b.Title.Contains(keyword) || b.Tags.Contains(keyword)
-                                   || b.BodyOverview.Contains(keyword) || b.MetaTitle.Contains(keyword)
-                                   || b.MetaDescription.Contains(keyword) || b.MetaKeywords.Contains(keyword));
-            }
-            matchingBlogPostsQuery = matchingBlogPostsQuery.OrderByDescending(b => b.CreatedOnUtc);
-            matchingBlogPostsQuery = matchingBlogPostsQuery.OrderByDescending(b => searchTerms.Count(keyword => b.Body.Contains(keyword) || b.Title.Contains(keyword) || b.Tags.Contains(keyword)
-                                   || b.BodyOverview.Contains(keyword) || b.MetaTitle.Contains(keyword)
-                                   || b.MetaDescription.Contains(keyword) || b.MetaKeywords.Contains(keyword)));
-            return await matchingBlogPostsQuery.OrderByDescending(b => b.CreatedOnUtc).ToListAsync();
+                return from b in query
+                       where b.Body.Contains(searchModel.q) || b.Title.Contains(searchModel.q) || b.Tags.Contains(searchModel.q)
+                                   || b.BodyOverview.Contains(searchModel.q) || b.MetaTitle.Contains(searchModel.q)
+                                   || b.MetaDescription.Contains(searchModel.q) || b.MetaKeywords.Contains(searchModel.q)
+                       orderby b.CreatedOnUtc descending
+                       select b;
+            });
         }
 
-        private async Task<string[]> ValidateSearchTermsAndPlaceWarning<T>(SearchModel searchModel, T modelToReturn) where T : ImprovedModelBase
+        private async Task ValidateSearchTermsAndPlaceWarning<T>(SearchModel searchModel, T modelToReturn) where T : ImprovedModelBase
         {
             if (string.IsNullOrWhiteSpace(searchModel?.q) || searchModel.q.Trim().Length < _catalogSettings.ProductSearchTermMinimumLength)
             {
                 modelToReturn.WarningMessage = string.Format(await _localizationService.GetResourceAsync("Search.SearchTermMinimumLengthIsNCharacters"),
                             _catalogSettings.ProductSearchTermMinimumLength);
             }
-
-            return searchModel.q.Split();
         }
     }
 }

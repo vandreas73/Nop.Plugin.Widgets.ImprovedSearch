@@ -1,0 +1,1 @@
+# Nop.Plugin.Widgets.ImprovedSearch

@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Widgets",
+  "FriendlyName": "Improved Search",
+  "SystemName": "Widgets.ImprovedSearch",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.60" ],
+  "Author": "András Vesztergombi",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.ImprovedSearch.dll",
+  "Description": ""
+}

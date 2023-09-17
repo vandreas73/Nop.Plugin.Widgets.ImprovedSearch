@@ -1,0 +1,73 @@
+@model ImprovedBlogPostListModel
+
+@using Nop.Core.Domain.Blogs
+
+<div class="page-body">
+        <div class="blog-posts">
+            @if (!string.IsNullOrWhiteSpace(Model.WarningMessage))
+            {
+                <div class="warning">
+                    @Model.WarningMessage
+                </div>
+            }
+            else if (!string.IsNullOrWhiteSpace(Model.NoResultMessage))
+            {
+                @Html.Raw(Model.NoResultMessage)
+            }
+            else 
+            {
+                @foreach (var item in Model.BlogPosts)
+                {
+                    <div class="post search-post">
+                        <div class="post-head">
+                            <a class="post-title" href="@(Url.RouteUrl<BlogPost>(new { SeName = item.SeName }))">@item.Title</a>
+                            <span class="post-date">@item.CreatedOn.ToString("D")</span>
+                        </div>
+                        <div class="post-body">
+                            @if (string.IsNullOrEmpty(item.BodyOverview))
+                            {
+                                @if (item.Body.Length <= 200)
+                                {
+                                    @Html.Raw(item.Body)
+                                }
+                                else
+                                {
+                                    @Html.Raw(item.Body.Substring(0, 200) + "...")
+                                }
+                            }
+                            else
+                            {
+                                @Html.Raw(item.BodyOverview)
+                            }
+                        </div>
+                        <div class="blog-details">
+                            @if (item.Tags.Count > 0)
+                            {
+                                <div class="tags">
+                                    <label>@T("Blog.Tags"):</label>
+                                    <ul>
+                                        @for (var i = 0; i < item.Tags.Count; i++)
+                                        {
+                                            var tag = item.Tags[i];
+                                            <li><a href="@Url.RouteUrl("BlogByTag", new {tag = tag})">@tag</a></li>
+                                            if (i != item.Tags.Count - 1)
+                                            {
+                                                <li class="separator">,</li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            <div class="buttons">
+                                @if (item.AllowComments)
+                                {
+                                    <a href="@(Url.RouteUrl<BlogPost>(new { SeName = item.SeName }, fragment: "comments"))" class="read-comments">@string.Format(T("Blog.CommentsLink").Text, item.NumberOfComments)</a>
+                                }
+                                <a href="@(Url.RouteUrl<BlogPost>(new { SeName = item.SeName }))" class="read-more primary-btn"><span>@T("Blog.MoreInfo")</span></a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>

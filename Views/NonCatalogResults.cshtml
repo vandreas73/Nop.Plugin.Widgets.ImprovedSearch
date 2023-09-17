@@ -1,0 +1,27 @@
+@model ImprovedSearchModel
+
+@using Nop.Core.Domain.Blogs
+@inject INopHtmlHelper NopHtml
+
+@{
+    NopHtml.AddCssFileParts("~/Plugins/Widgets.ImprovedSearch/Views/improvedStyle.css", excludeFromBundle: false);
+}
+
+<div class="page blog-page">
+    <div class="improved-search-results">
+        <div class="page-title vult-page-title">
+            <h1>
+                @T("Blog")
+            </h1>
+        </div>
+        @(await Html.PartialAsync("~/Plugins/Widgets.ImprovedSearch/Views/_BlogList.cshtml", Model.BlogPostListModel))
+    </div>
+    <div class="improved-search-results">
+        <div class="page-title vult-page-title">
+            <h1>
+                @T("admin.contentmanagement.topics")
+            </h1>
+        </div>
+        @(await Html.PartialAsync("~/Plugins/Widgets.ImprovedSearch/Views/_TopicList.cshtml", Model.TopicListModel))
+    </div>
+</div>

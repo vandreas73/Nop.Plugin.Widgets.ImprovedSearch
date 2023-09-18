@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
 	  <OutputPath>..\..\Presentation\Nop.Web\Plugins\Widgets.ImprovedSearch</OutputPath>
+    <RepositoryUrl>https://github.com/vandreas73/Nop.Plugin.Widgets.ImprovedSearch</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
     <OutDir>$(OutputPath)</OutDir>
     <!--Set this parameter to true to get the dlls copied from the NuGet cache to the output of your project.
     You need to set this parameter to true if your plugin has a nuget package 
@@ -11,9 +13,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="logo.jpg" />
+    <Compile Remove="Areas\**" />
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="Extensions\**" />
+    <EmbeddedResource Remove="Areas\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <None Remove="Areas\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="Extensions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
 	<None Remove="plugin.json" />
-    <None Remove="Areas\Admin\Views\_ViewImports.cshtml" />
     <None Remove="Views\_Bloglist.cshtml" />
     <None Remove="Views\_TopicList.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
@@ -22,9 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="logo.jpg">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="plugin.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -52,22 +61,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\Admin\Views\_ViewImports.cshtml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Update="Views\_ViewImports.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Areas\Admin\Extensions\" />
-    <Folder Include="Areas\Admin\Factories\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="Factories\" />
   </ItemGroup>
  
   <!-- This target execute after "Build" target -->

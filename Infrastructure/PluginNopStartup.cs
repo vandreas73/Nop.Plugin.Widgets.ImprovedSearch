@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nop.Core.Infrastructure;
+using Nop.Plugin.Widgets.ImprovedSearch.Factories;
 using Nop.Plugin.Widgets.ImprovedSearch.Services;
 
 namespace Nop.Plugin.Widgets.ImprovedSearch.Infrastructure
@@ -19,6 +20,7 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Infrastructure
             //register services and interfaces
             //services.AddScoped<CustomModelFactory, ICustomerModelFactory>();
             services.AddScoped<IImprovedSearchService, ImprovedSearchService>();
+            services.AddScoped<IImprovedSearchModelFactory, ImprovedSearchModelFactory>();
         }
 
         public void Configure(IApplicationBuilder application)

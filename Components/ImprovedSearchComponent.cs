@@ -20,9 +20,9 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Components
             _improvedSearchService = improvedSearchService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string widgetZone, SearchModel additionalData)
+        public async Task<IViewComponentResult> InvokeAsync(string widgetZone, SearchModel additionalData, int pagenumber = 0)
         {
-            return View("~/Plugins/Widgets.ImprovedSearch/Views/NonCatalogResults.cshtml", await _improvedSearchService.Search(additionalData));
+            return View("~/Plugins/Widgets.ImprovedSearch/Views/NonCatalogResults.cshtml", await _improvedSearchService.Search(additionalData, pagenumber));
         }
     }
 }

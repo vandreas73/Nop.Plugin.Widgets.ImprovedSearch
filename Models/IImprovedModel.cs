@@ -7,7 +7,7 @@ using Nop.Web.Models.Blogs;
 
 namespace Nop.Plugin.Widgets.ImprovedSearch.Models
 {
-    public class ImprovedModelBase
+    public interface IImprovedModel
     {
         /// <summary>
         /// Gets or sets the warning message

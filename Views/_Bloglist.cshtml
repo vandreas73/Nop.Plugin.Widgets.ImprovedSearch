@@ -1,6 +1,11 @@
 @model ImprovedBlogPostListModel
 
 @using Nop.Core.Domain.Blogs
+@inject INopHtmlHelper NopHtml
+
+@{
+    NopHtml.AddCssFileParts("~/Plugins/Widgets.ImprovedSearch/Views/improvedStyle.css", excludeFromBundle: false);
+}
 
 <div class="page-body">
         <div class="blog-posts">
@@ -70,4 +75,13 @@
                 }
             }
         </div>
+        @{
+            var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+        }
+        @if (!(await pager.IsEmpty()))
+        {
+            <div class="pager">
+                @pager
+            </div>
+        }
     </div>

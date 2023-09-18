@@ -7,8 +7,9 @@ using Nop.Web.Models.Blogs;
 
 namespace Nop.Plugin.Widgets.ImprovedSearch.Models
 {
-    public class ImprovedBlogPostListModel : ImprovedModelBase
+    public record ImprovedBlogPostListModel : BlogPostListModel, IImprovedModel
     {
-        public IList<BlogPostModel> BlogPosts { get; set; } = new List<BlogPostModel>();
+        public string WarningMessage { get; set; }
+        public string NoResultMessage { get; set; }
     }
 }

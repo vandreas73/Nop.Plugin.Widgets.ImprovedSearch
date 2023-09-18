@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Language Name="EN">
+  
+  <LocaleResource Name="plugins.widgets.improvedsearch.topic.noresult">
+      <Value>No page (topic) found which includes the searched expression: "{0}"</Value>
+  </LocaleResource>
+  
+  <LocaleResource Name="plugins.widgets.improvedsearch.blog.noresult">
+      <Value>No blog post found which includes the searched expression: "{0}"</Value>
+  </LocaleResource>
+  
+</Language>

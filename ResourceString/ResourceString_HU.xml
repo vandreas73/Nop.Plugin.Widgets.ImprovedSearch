@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Language Name="HU">
+
+    <LocaleResource Name="plugins.widgets.improvedsearch.topic.noresult">
+        <Value>Nincs olyan oldal (téma), amiben szerepel a keresett kifejezés: "{0}"</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="plugins.widgets.improvedsearch.blog.noresult">
+        <Value>Nincs olyan blogbejegyzés, amiben szerepel a keresett kifejezés: "{0}"</Value>
+    </LocaleResource>
+
+</Language>

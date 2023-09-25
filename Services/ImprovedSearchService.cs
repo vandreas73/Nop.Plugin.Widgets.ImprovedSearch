@@ -32,7 +32,6 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Services
     public class ImprovedSearchService : IImprovedSearchService
     {
         private readonly IRepository<BlogPost> _blogPostRepository;
-        private readonly IBlogModelFactory _blogModelFactory;
         private readonly CatalogSettings _catalogSettings;
         private readonly ILocalizationService _localizationService;
         private readonly IRepository<Topic> _topicRepository;
@@ -51,7 +50,6 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Services
             IWorkContext workContext)
         {
             _blogPostRepository = blogPostRepository;
-            _blogModelFactory = blogModelFactory;
             _catalogSettings = catalogSettings;
             _localizationService = localizationService;
             _topicRepository = topicRepository;
@@ -115,7 +113,7 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Services
                 return improvedBlogPostListModel;
             }
             var language = await _workContext.GetWorkingLanguageAsync();
-            var blogPosts = await GetMatchingBlogPosts(searchModel, language.Id, pagenumber, 10);
+            var blogPosts = await GetMatchingBlogPosts(searchModel, language.Id, pagenumber, 5);
 
             if (blogPosts.Count == 0)
             {

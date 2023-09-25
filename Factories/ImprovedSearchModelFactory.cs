@@ -21,29 +21,18 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Factories
     public class ImprovedSearchModelFactory : IImprovedSearchModelFactory
     {
         private readonly BlogSettings _blogSettings;
-        private readonly IWorkContext _workContext;
         private readonly IBlogModelFactory _blogModelFactory;
 
         public ImprovedSearchModelFactory
             (BlogSettings blogSettings,
-            IWorkContext workContext,
             IBlogModelFactory blogModelFactory)
         {
             _blogSettings = blogSettings;
-            _workContext = workContext;
             _blogModelFactory = blogModelFactory;
         }
 
         public async Task<ImprovedBlogPostListModel> PrepareBlogPostListModelAsync(IPagedList<BlogPost> blogPosts)
         {
-            var command = new BlogPagingFilteringModel();
-
-            if (command.PageSize <= 0)
-                command.PageSize = _blogSettings.PostsPageSize;
-            if (command.PageNumber <= 0)
-                command.PageNumber = 1;
-
-            
             var model = new ImprovedBlogPostListModel
             {
                 PagingFilteringContext = { },

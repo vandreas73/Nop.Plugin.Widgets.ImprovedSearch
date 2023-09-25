@@ -85,3 +85,16 @@
             </div>
         }
     </div>
+
+<!-- jQuery AJAX call -->
+<script>
+    $(".pager a").click(function() {
+        $.ajax({
+                url: '/ImproveddSearch/LoadComponent',
+                dataType: 'json',
+                data: '{ additionalData : ' + JSON.stringify(Model) + '}',
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+        });
+    });
+</script>

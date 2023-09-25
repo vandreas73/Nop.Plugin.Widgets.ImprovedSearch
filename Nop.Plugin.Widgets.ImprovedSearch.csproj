@@ -14,13 +14,10 @@
 
   <ItemGroup>
     <Compile Remove="Areas\**" />
-    <Compile Remove="Controllers\**" />
     <Compile Remove="Extensions\**" />
     <EmbeddedResource Remove="Areas\**" />
-    <EmbeddedResource Remove="Controllers\**" />
     <EmbeddedResource Remove="Extensions\**" />
     <None Remove="Areas\**" />
-    <None Remove="Controllers\**" />
     <None Remove="Extensions\**" />
   </ItemGroup>
 

@@ -23,7 +23,7 @@
 
   <ItemGroup>
 	<None Remove="plugin.json" />
-    <None Remove="Views\_Bloglist.cshtml" />
+    <None Remove="Views\_BlogList.cshtml" />
     <None Remove="Views\_TopicList.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
     <None Remove="Views\NonCatalogResults.cshtml" />

@@ -6,7 +6,7 @@ NopCommerce searches only in catalog (products, categories, manufacturers). With
 ## Full description:
 Features:
 - search in blog posts
-- ssearch in topics (pages)
+- search in topics (pages)
 - the results are showed under the default catalog search results
 
 A search field is a useful feature of any website. If you have blog or other pages (topics) on your website, you might want to search in them. This widget shows the search results in blog posts and in topics (pages). Of course the default NopCommerce search works as well, after the default results (products) you will see the other results.
@@ -20,6 +20,7 @@ The extension searches the blogposts title, body, body overview and meta tags, s
 https://github.com/vandreas73/Nop.Plugin.Widgets.ImprovedSearch
 
 ## uploadedItems.json
+```
 [
   {
     "Type": "Plugin",
@@ -29,3 +30,4 @@ https://github.com/vandreas73/Nop.Plugin.Widgets.ImprovedSearch
     "SourceDirectoryPath": "ImprovedSearch/nopCommerce-4.60/Nop.Plugin.Widgets.ImprovedSearch/"
   }
 ]
+```

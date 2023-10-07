@@ -28,6 +28,7 @@
     <None Remove="Views\_ViewImports.cshtml" />
     <None Remove="Views\NonCatalogResults.cshtml" />
     <None Remove="Views\improvedStyle.css" />
+    <None Remove="logo.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,7 +50,10 @@
     <Content Include="Views\improvedStyle.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
+    <Content Include="logo.jpg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />

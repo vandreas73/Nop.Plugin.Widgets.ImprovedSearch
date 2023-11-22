@@ -3,42 +3,53 @@
 @using Nop.Core.Domain.Topics
 
 <div class="page-body">
-        <div class="blog-posts">
-            @if (!string.IsNullOrWhiteSpace(Model.WarningMessage))
-            {
-                <div class="warning">
-                    @Model.WarningMessage
-                </div>
-            }
-            else if (!string.IsNullOrWhiteSpace(Model.NoResultMessage))
-            {
-                @Html.Raw(Model.NoResultMessage)
-            }
-            else 
-            {
-                @foreach (var item in Model.Topics)
-                {
-                    <div class="post search-post">
-                        <div class="post-head">
-                            <a class="post-title" href="@(Url.RouteUrl<Topic>(new { SeName = item.SeName }))">@item.Title</a>
-                        </div>
-                        <div class="post-body">
-                        @if (item.Body.Length <= 200)
-                        {
-                            @Html.Raw(item.Body)
-                        }
-                        else
-                        {
-                            @Html.Raw(item.Body.Substring(0, 200) + "...")
-                        }
-                        </div>
-                        <div class="blog-details">
-                            <div class="buttons">
-                                <a href="@(Url.RouteUrl<Topic>(new { SeName = item.SeName }))" class="read-more primary-btn"><span>@T("Blog.MoreInfo")</span></a>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-        </div>
-    </div>
+	<div class="blog-posts">
+		@if (!string.IsNullOrWhiteSpace(Model.WarningMessage))
+		{
+			<div class="warning">
+				@Model.WarningMessage
+			</div>
+		}
+		else if (!string.IsNullOrWhiteSpace(Model.NoResultMessage))
+		{
+			@Html.Raw(Model.NoResultMessage)
+		}
+		else
+		{
+			@foreach (var item in Model.Topics)
+			{
+				<div class="post search-post">
+					<div class="post-head">
+						<a class="post-title" href="@(Url.RouteUrl<Topic>(new { SeName = item.SeName }))">@item.Title</a>
+					</div>
+					<div class="post-body">
+						@if (item.Body.Length <= 200)
+						{
+							@Html.Raw(item.Body)
+						}
+						else
+						{
+							var shortBody = item.Body.Substring(0, 200);
+							@Html.Raw(shortBody + "...")
+
+							var closingTags = Regex.Matches(shortBody, Regex.Escape("</")).Count;
+							var openingTags = Regex.Matches(shortBody, Regex.Escape("<")).Count - closingTags;
+
+							while (openingTags > closingTags)
+							{
+								@Html.Raw("</div>")
+								openingTags -= 1;
+							}
+
+						}
+					</div>
+					<div class="blog-details">
+						<div class="buttons">
+							<a href="@(Url.RouteUrl<Topic>(new { SeName = item.SeName }))" class="read-more primary-btn"><span>@T("Blog.MoreInfo")</span></a>
+						</div>
+					</div>
+				</div>
+			}
+		}
+	</div>
+</div>

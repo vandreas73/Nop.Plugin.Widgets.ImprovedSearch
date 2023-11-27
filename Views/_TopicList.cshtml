@@ -23,25 +23,7 @@
 						<a class="post-title" href="@(Url.RouteUrl<Topic>(new { SeName = item.SeName }))">@item.Title</a>
 					</div>
 					<div class="post-body">
-						@if (item.Body.Length <= 200)
-						{
-							@Html.Raw(item.Body)
-						}
-						else
-						{
-							var shortBody = item.Body.Substring(0, 200);
-							@Html.Raw(shortBody + "...")
-
-							var closingTags = Regex.Matches(shortBody, Regex.Escape("</")).Count;
-							var openingTags = Regex.Matches(shortBody, Regex.Escape("<")).Count - closingTags;
-
-							while (openingTags > closingTags)
-							{
-								@Html.Raw("</div>")
-								openingTags -= 1;
-							}
-
-						}
+						@Html.Raw(item.Body)
 					</div>
 					<div class="blog-details">
 						<div class="buttons">

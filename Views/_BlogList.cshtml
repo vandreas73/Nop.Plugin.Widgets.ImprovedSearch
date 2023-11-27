@@ -31,14 +31,7 @@
 					<div class="post-body">
 						@if (string.IsNullOrEmpty(item.BodyOverview))
 						{
-							@if (item.Body.Length <= 200)
-							{
-								@Html.Raw(item.Body)
-							}
-							else
-							{
-								@Html.Raw(item.Body.Substring(0, 200) + "...")
-							}
+							@Html.Raw(item.Body)
 						}
 						else
 						{

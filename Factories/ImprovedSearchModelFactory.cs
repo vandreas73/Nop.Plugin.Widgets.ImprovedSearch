@@ -20,14 +20,11 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Factories
 
     public class ImprovedSearchModelFactory : IImprovedSearchModelFactory
     {
-        private readonly BlogSettings _blogSettings;
         private readonly IBlogModelFactory _blogModelFactory;
 
         public ImprovedSearchModelFactory
-            (BlogSettings blogSettings,
-            IBlogModelFactory blogModelFactory)
+            (IBlogModelFactory blogModelFactory)
         {
-            _blogSettings = blogSettings;
             _blogModelFactory = blogModelFactory;
         }
 

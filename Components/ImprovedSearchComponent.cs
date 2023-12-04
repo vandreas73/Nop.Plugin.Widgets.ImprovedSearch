@@ -1,13 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using DocumentFormat.OpenXml.EMMA;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using Nop.Plugin.Widgets.ImprovedSearch.Models;
 using Nop.Plugin.Widgets.ImprovedSearch.Services;
 using Nop.Web.Framework.Components;
-using Nop.Web.Models.Blogs;
 using Nop.Web.Models.Catalog;
 
 namespace Nop.Plugin.Widgets.ImprovedSearch.Components

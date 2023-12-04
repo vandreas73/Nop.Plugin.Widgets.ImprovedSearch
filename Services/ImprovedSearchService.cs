@@ -41,7 +41,6 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Services
 
         public ImprovedSearchService(
             IRepository<BlogPost> blogPostRepository,
-            IBlogModelFactory blogModelFactory,
             CatalogSettings catalogSettings,
             ILocalizationService localizationService,
             IRepository<Topic> topicRepository,

@@ -1,5 +1,7 @@
 # Improved Search, Search in Blog and Topics (Pages)
 
+https://www.nopcommerce.com/en/improved-search-search-in-blog-and-topics-pages
+
 ## Short description:
 NopCommerce searches only in catalog (products, categories, manufacturers). With Improved Search extension you will see Blog and Topics (Pages) search results as well.
 
